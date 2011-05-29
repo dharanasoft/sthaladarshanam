@@ -1,0 +1,83 @@
+- content_for :head_scripts do
+  =javascript_include_tag "http://maps.google.com/maps/api/js?libraries=places&sensor=false"
+  :javascript
+    $(document).ready(function(){
+      var latlng = new google.maps.LatLng(-34.397, 150.644);
+      var directionsDisplay = new google.maps.DirectionsRenderer();
+      var myOptions = {
+        zoom: 8,
+        center: latlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+      var map = new google.maps.Map(document.getElementById("map"),
+          myOptions);
+      directionsDisplay.setMap(map);
+      var placesService = new google.maps.places.PlacesService(map);
+      var ds = new google.maps.DirectionsService();
+      
+      
+      // call back after a place is found
+      var placeFound = function(placeResults,placeStatus){
+        $(placeResults).each(function(){
+          console.log("Found a place " + this.name);
+          $("#results").append('<li><a class="waypoint" href="#" data-lat="'+this.geometry.location.lat()+'" data-lng="' + this.geometry.location.lng()+'">'+this.name+',</a> ' + this.vicinity +'</li>');
+        });
+        $("a.waypoint").unbind("click").click(function(){
+          if(!($.waypoints)) { $.waypoints=[]; }
+          $.waypoints.push(new google.maps.LatLng(parseFloat($(this).attr("data-lat")),parseFloat($(this).attr("data-lng"))));
+          return false;
+        });
+      }
+
+
+      //call back for drawing directions
+      var drawRoute = function(directionResult,directionStatus){
+        console.log("Found the result");
+        console.log(directionResult);
+        directionsDisplay.setDirections(directionResult);
+        if($.search){
+          $(directionResult.routes).each(function(){
+            $(this.legs).each(function(){
+              $(this.steps).each(function(){
+                psRequest = {location: this.start_location, radius: '5000',name: "temple" };
+                console.log("Searching around "+this.start_location.toString());
+                placesService.search(psRequest,placeFound);
+              });
+            });
+          });
+        }
+      };
+
+      $("#btn_search").click(function(e){
+        $.search=true;
+        var from = $("#from").val();
+        var to = $("#to").val();
+        if(!from) { from="Chennai"; }
+        if(!to) { to="Madurai"; }
+        var dr = {origin: from, destination: to, travelMode: "DRIVING"};
+        ds.route(dr,drawRoute);
+        return false;
+      });
+      $("#reroute").click(function(e){
+        var from = $("#from").val();
+        var to = $("#to").val();
+        if(!from) { from="Chennai"; }
+        if(!to) { to="Madurai"; }
+        waypoints=$.map($.waypoints,function(it){{location:it}});
+        var dr = {origin: from, destination: to, travelMode: "DRIVING", waypoints: waypoints, optimizeWaypoints: true};
+        $.search=false;
+        ds.route(dr,drawRoute);
+        return false;
+      });
+    });
+
+#search
+  %form(action="#")
+    =label_tag 'from'
+    =text_field_tag 'from'
+    =label_tag 'to'
+    =text_field_tag 'to'
+    %button#btn_search Search
+#map
+%ul#results
+%button#reroute Reroute
