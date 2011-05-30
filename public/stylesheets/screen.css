@@ -181,3 +181,19 @@ h1 {
 * html #container #search {
   overflow-x: hidden;
 }
+
+/* line 59, ../../app/stylesheets/screen.sass */
+#footer {
+  display: inline;
+  float: left;
+  margin-right: 10px;
+  width: 950px;
+  color: #eeeeee;
+  font-size: small;
+  text-align: center;
+  margin-top: 15px;
+}
+/* line 147, ../../../../../.rvm/gems/ruby-1.9.2-p180@r3/gems/compass-0.11.1/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+* html #footer {
+  overflow-x: hidden;
+}
