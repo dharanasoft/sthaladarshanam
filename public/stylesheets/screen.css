@@ -161,6 +161,14 @@ h1 {
   overflow-x: hidden;
 }
 /* line 49, ../../app/stylesheets/screen.sass */
+#container #maps #directions ol {
+  margin-left: 20px;
+}
+/* line 51, ../../app/stylesheets/screen.sass */
+#container #maps #directions ol li {
+  list-style-type: decimal;
+}
+/* line 53, ../../app/stylesheets/screen.sass */
 #container #search {
   display: inline;
   float: left;
