@@ -76,14 +76,36 @@ footer, header, hgroup, menu, nav, section {
   *zoom: 1;
 }
 /* line 11, ../../app/stylesheets/screen.sass */
-#container #map {
+#container #maps {
   display: inline;
   float: left;
   margin-right: 10px;
-  width: 950px;
+  width: 470px;
+}
+/* line 147, ../../../../../.rvm/gems/ruby-1.9.2-p180@r3/gems/compass-0.11.1/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+* html #container #maps {
+  overflow-x: hidden;
+}
+/* line 13, ../../app/stylesheets/screen.sass */
+#container #maps #map {
+  display: inline;
+  float: left;
+  margin-right: 10px;
+  width: 470px;
   height: 400px;
 }
 /* line 147, ../../../../../.rvm/gems/ruby-1.9.2-p180@r3/gems/compass-0.11.1/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html #container #map {
+* html #container #maps #map {
+  overflow-x: hidden;
+}
+/* line 18, ../../app/stylesheets/screen.sass */
+#container #search {
+  display: inline;
+  float: left;
+  margin-right: 10px;
+  width: 430px;
+}
+/* line 147, ../../../../../.rvm/gems/ruby-1.9.2-p180@r3/gems/compass-0.11.1/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+* html #container #search {
   overflow-x: hidden;
 }

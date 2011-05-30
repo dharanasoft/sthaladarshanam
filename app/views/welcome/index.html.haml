@@ -2,10 +2,10 @@
   =javascript_include_tag "http://maps.google.com/maps/api/js?libraries=places&sensor=false"
   :javascript
     $(document).ready(function(){
-      var latlng = new google.maps.LatLng(-34.397, 150.644);
+      var latlng = new google.maps.LatLng(13.083333,80.283333);
       var directionsDisplay = new google.maps.DirectionsRenderer();
       var myOptions = {
-        zoom: 8,
+        zoom: 12,
         center: latlng,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
@@ -15,16 +15,34 @@
       var placesService = new google.maps.places.PlacesService(map);
       var ds = new google.maps.DirectionsService();
       
+      var redraw=function(){
+        
+        var from = $("#from").val();
+        var to = $("#to").val();
+        if(!from) { from="Chennai"; }
+        if(!to) { to="Madurai"; }
+        waypoints=$.map($.waypoints,function(it){return {location:it}});
+        var dr = {origin: from, destination: to, travelMode: "DRIVING", waypoints: waypoints, optimizeWaypoints: true};
+        $.search=false;
+        ds.route(dr,drawRoute);
+      };
       
       // call back after a place is found
       var placeFound = function(placeResults,placeStatus){
+        if(!$.places) { $.places=[]}
+
         $(placeResults).each(function(){
+          console.log(this);
           console.log("Found a place " + this.name);
-          $("#results").append('<li><a class="waypoint" href="#" data-lat="'+this.geometry.location.lat()+'" data-lng="' + this.geometry.location.lng()+'">'+this.name+',</a> ' + this.vicinity +'</li>');
+          if($.places.indexOf(this.id)==-1){ 
+            $("#results").append('<li><a class="waypoint" href="#" data-lat="'+this.geometry.location.lat()+'" data-lng="' + this.geometry.location.lng()+'">'+this.name+',</a> ' + this.vicinity +'</li>');
+            $.places.push(this.id);
+          }
         });
         $("a.waypoint").unbind("click").click(function(){
           if(!($.waypoints)) { $.waypoints=[]; }
           $.waypoints.push(new google.maps.LatLng(parseFloat($(this).attr("data-lat")),parseFloat($(this).attr("data-lng"))));
+          redraw();
           return false;
         });
       }
@@ -34,18 +52,20 @@
       var drawRoute = function(directionResult,directionStatus){
         console.log("Found the result");
         console.log(directionResult);
+        $("#directions").html("");
         directionsDisplay.setDirections(directionResult);
-        if($.search){
           $(directionResult.routes).each(function(){
             $(this.legs).each(function(){
               $(this.steps).each(function(){
                 psRequest = {location: this.start_location, radius: '5000',name: "temple" };
+                $("#directions").append("<li class='step'>"+this.instructions+"</li>");
                 console.log("Searching around "+this.start_location.toString());
-                placesService.search(psRequest,placeFound);
+                if($.search){
+                  placesService.search(psRequest,placeFound);
+                }
               });
             });
           });
-        }
       };
 
       $("#btn_search").click(function(e){
@@ -59,14 +79,7 @@
         return false;
       });
       $("#reroute").click(function(e){
-        var from = $("#from").val();
-        var to = $("#to").val();
-        if(!from) { from="Chennai"; }
-        if(!to) { to="Madurai"; }
-        waypoints=$.map($.waypoints,function(it){{location:it}});
-        var dr = {origin: from, destination: to, travelMode: "DRIVING", waypoints: waypoints, optimizeWaypoints: true};
-        $.search=false;
-        ds.route(dr,drawRoute);
+        redraw();
         return false;
       });
     });
@@ -78,6 +91,9 @@
     =label_tag 'to'
     =text_field_tag 'to'
     %button#btn_search Search
-#map
-%ul#results
-%button#reroute Reroute
+  %ul#results
+  %button#reroute Reroute
+#maps
+  #map
+  #waypoints
+  %ul#directions

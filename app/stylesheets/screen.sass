@@ -8,6 +8,12 @@
 @import "blueprint/grid"
 #container
   @include container
-  #map
-    @include column(24)
-    height: 400px
+  #maps
+    @include column(12)
+    #map
+      @include column(12)
+      height: 400px
+    #waypoints
+    #directions
+  #search
+    @include column(11)
