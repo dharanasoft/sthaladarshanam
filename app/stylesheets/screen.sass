@@ -6,14 +6,47 @@
 @import "compass/reset"
 @import "blueprint"
 @import "blueprint/grid"
+
+body
+  background-color: #992027
+  background-image: url(/images/red091.jpg)
+  color: #eee
+  font-family: "Ubuntu", sans-serif
+
+
+h1
+  font-size: 3em
+  font-family: 'Carter One'
+  text-shadow: 2px
+#header
+  @include container
+  margin-top: 10px
 #container
   @include container
+  color: #333
+  margin-top: 10px
+  h3
+    font-family: "Philosopher"
+    font-size: 2em
   #maps
     @include column(12)
     #map
       @include column(12)
       height: 400px
+      background-color: #E8E8E2
+      border: 1px solid #777
+      padding: 10px
     #waypoints
+      @include column(12)
+      margin-top: 10px
+      background-color: #E8E8E2
+      padding: 10px
     #directions
+      @include column(12)
+      margin-top: 10px
+      background-color: #E8E8E2
+      padding: 10px
   #search
     @include column(11)
+    background-color: #E8E8E2
+    padding: 10px

@@ -16,13 +16,23 @@
       var ds = new google.maps.DirectionsService();
       
       var redraw=function(){
-        
         var from = $("#from").val();
         var to = $("#to").val();
         if(!from) { from="Chennai"; }
         if(!to) { to="Madurai"; }
-        waypoints=$.map($.waypoints,function(it){return {location:it}});
+        //waypoints=$.map($.waypoints,function(it){return {location:it}});
+        waypoints=$.map($.waypoints,function(it){return {location: it.location};});
+        console.log(waypoints);
         var dr = {origin: from, destination: to, travelMode: "DRIVING", waypoints: waypoints, optimizeWaypoints: true};
+        $("#waypoints ul").html("");
+        $($.waypoints).each(function(idx){
+          $("#waypoints ul").append("<li><a href='#' class='selected-waypoint' data-index='"+idx+"'>"+this.name+"</a></li>");
+        });
+        $(".selected-waypoint").click(function(){
+          $.waypoints.splice(parseInt($(this).attr("data-index")),1);
+          redraw();
+          return false;
+        });
         $.search=false;
         ds.route(dr,drawRoute);
       };
@@ -30,18 +40,17 @@
       // call back after a place is found
       var placeFound = function(placeResults,placeStatus){
         if(!$.places) { $.places=[]}
-
         $(placeResults).each(function(){
           console.log(this);
           console.log("Found a place " + this.name);
           if($.places.indexOf(this.id)==-1){ 
-            $("#results").append('<li><a class="waypoint" href="#" data-lat="'+this.geometry.location.lat()+'" data-lng="' + this.geometry.location.lng()+'">'+this.name+',</a> ' + this.vicinity +'</li>');
+            $("#results ul").append('<li><a class="waypoint" href="#" data-lat="'+this.geometry.location.lat()+'" data-lng="' + this.geometry.location.lng()+'">'+this.name+',</a> ' + this.vicinity +'</li>');
             $.places.push(this.id);
           }
         });
         $("a.waypoint").unbind("click").click(function(){
           if(!($.waypoints)) { $.waypoints=[]; }
-          $.waypoints.push(new google.maps.LatLng(parseFloat($(this).attr("data-lat")),parseFloat($(this).attr("data-lng"))));
+          $.waypoints.push({location: new google.maps.LatLng(parseFloat($(this).attr("data-lat")),parseFloat($(this).attr("data-lng"))), name: $(this).text()});
           redraw();
           return false;
         });
@@ -52,13 +61,13 @@
       var drawRoute = function(directionResult,directionStatus){
         console.log("Found the result");
         console.log(directionResult);
-        $("#directions").html("");
+        $("#directions ol").html("");
         directionsDisplay.setDirections(directionResult);
           $(directionResult.routes).each(function(){
             $(this.legs).each(function(){
               $(this.steps).each(function(){
                 psRequest = {location: this.start_location, radius: '5000',name: "temple" };
-                $("#directions").append("<li class='step'>"+this.instructions+"</li>");
+                $("#directions ol").append("<li class='step'>"+this.instructions+"</li>");
                 console.log("Searching around "+this.start_location.toString());
                 if($.search){
                   placesService.search(psRequest,placeFound);
@@ -70,6 +79,7 @@
 
       $("#btn_search").click(function(e){
         $.search=true;
+        $("#results ul").html("");
         var from = $("#from").val();
         var to = $("#to").val();
         if(!from) { from="Chennai"; }
@@ -91,9 +101,16 @@
     =label_tag 'to'
     =text_field_tag 'to'
     %button#btn_search Search
-  %ul#results
-  %button#reroute Reroute
+  #results
+    %h3 Temples en-route
+    %p click on a temple to visit it
+    %ul
 #maps
   #map
   #waypoints
-  %ul#directions
+    %h3 Waypoints
+    %p click on the waypoints to remove them from the list
+    %ul
+  #directions
+    %h3 Directions
+    %ol

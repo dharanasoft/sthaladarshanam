@@ -68,14 +68,45 @@ footer, header, hgroup, menu, nav, section {
   display: block;
 }
 
-/* line 9, ../../app/stylesheets/screen.sass */
+/* line 10, ../../app/stylesheets/screen.sass */
+body {
+  background-color: #992027;
+  background-image: url(/images/red091.jpg);
+  color: #eeeeee;
+  font-family: "Ubuntu", sans-serif;
+}
+
+/* line 17, ../../app/stylesheets/screen.sass */
+h1 {
+  font-size: 3em;
+  font-family: "Carter One";
+  text-shadow: 2px;
+}
+
+/* line 21, ../../app/stylesheets/screen.sass */
+#header {
+  width: 950px;
+  margin: 0 auto;
+  overflow: hidden;
+  *zoom: 1;
+  margin-top: 10px;
+}
+
+/* line 24, ../../app/stylesheets/screen.sass */
 #container {
   width: 950px;
   margin: 0 auto;
   overflow: hidden;
   *zoom: 1;
+  color: #333333;
+  margin-top: 10px;
 }
-/* line 11, ../../app/stylesheets/screen.sass */
+/* line 28, ../../app/stylesheets/screen.sass */
+#container h3 {
+  font-family: "Philosopher";
+  font-size: 2em;
+}
+/* line 31, ../../app/stylesheets/screen.sass */
 #container #maps {
   display: inline;
   float: left;
@@ -86,24 +117,57 @@ footer, header, hgroup, menu, nav, section {
 * html #container #maps {
   overflow-x: hidden;
 }
-/* line 13, ../../app/stylesheets/screen.sass */
+/* line 33, ../../app/stylesheets/screen.sass */
 #container #maps #map {
   display: inline;
   float: left;
   margin-right: 10px;
   width: 470px;
   height: 400px;
+  background-color: #e8e8e2;
+  border: 1px solid #777777;
+  padding: 10px;
 }
 /* line 147, ../../../../../.rvm/gems/ruby-1.9.2-p180@r3/gems/compass-0.11.1/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
 * html #container #maps #map {
   overflow-x: hidden;
 }
-/* line 18, ../../app/stylesheets/screen.sass */
+/* line 39, ../../app/stylesheets/screen.sass */
+#container #maps #waypoints {
+  display: inline;
+  float: left;
+  margin-right: 10px;
+  width: 470px;
+  margin-top: 10px;
+  background-color: #e8e8e2;
+  padding: 10px;
+}
+/* line 147, ../../../../../.rvm/gems/ruby-1.9.2-p180@r3/gems/compass-0.11.1/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+* html #container #maps #waypoints {
+  overflow-x: hidden;
+}
+/* line 44, ../../app/stylesheets/screen.sass */
+#container #maps #directions {
+  display: inline;
+  float: left;
+  margin-right: 10px;
+  width: 470px;
+  margin-top: 10px;
+  background-color: #e8e8e2;
+  padding: 10px;
+}
+/* line 147, ../../../../../.rvm/gems/ruby-1.9.2-p180@r3/gems/compass-0.11.1/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+* html #container #maps #directions {
+  overflow-x: hidden;
+}
+/* line 49, ../../app/stylesheets/screen.sass */
 #container #search {
   display: inline;
   float: left;
   margin-right: 10px;
   width: 430px;
+  background-color: #e8e8e2;
+  padding: 10px;
 }
 /* line 147, ../../../../../.rvm/gems/ruby-1.9.2-p180@r3/gems/compass-0.11.1/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
 * html #container #search {
