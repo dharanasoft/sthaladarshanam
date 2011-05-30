@@ -22,7 +22,6 @@
         if(!to) { to="Madurai"; }
         //waypoints=$.map($.waypoints,function(it){return {location:it}});
         waypoints=$.map($.waypoints,function(it){return {location: it.location};});
-        console.log(waypoints);
         var dr = {origin: from, destination: to, travelMode: "DRIVING", waypoints: waypoints, optimizeWaypoints: true};
         $("#waypoints ul").html("");
         $($.waypoints).each(function(idx){
@@ -41,8 +40,6 @@
       var placeFound = function(placeResults,placeStatus){
         if(!$.places) { $.places=[]}
         $(placeResults).each(function(){
-          console.log(this);
-          console.log("Found a place " + this.name);
           if($.places.indexOf(this.id)==-1){ 
             $("#results ul").append('<li><a class="waypoint" href="#" data-lat="'+this.geometry.location.lat()+'" data-lng="' + this.geometry.location.lng()+'">'+this.name+',</a> ' + this.vicinity +'</li>');
             $.places.push(this.id);
@@ -59,8 +56,6 @@
 
       //call back for drawing directions
       var drawRoute = function(directionResult,directionStatus){
-        console.log("Found the result");
-        console.log(directionResult);
         $("#directions ol").html("");
         directionsDisplay.setDirections(directionResult);
           $(directionResult.routes).each(function(){
@@ -68,7 +63,6 @@
               $(this.steps).each(function(){
                 psRequest = {location: this.start_location, radius: '5000',name: "temple" };
                 $("#directions ol").append("<li class='step'>"+this.instructions+"</li>");
-                console.log("Searching around "+this.start_location.toString());
                 if($.search){
                   placesService.search(psRequest,placeFound);
                 }
