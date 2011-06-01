@@ -30,6 +30,8 @@ h1
     font-size: 2em
   #maps
     @include column(12)
+    #share
+      @include column(12)
     #map
       @include column(12)
       height: 400px
@@ -50,6 +52,11 @@ h1
         margin-left: 20px
         li
           list-style-type: decimal
+      ul.distance
+        font-size: small
+        margin: 20px
+        li
+          list-style-type: disc
   #search
     @include column(11)
     background-color: #E8E8E2

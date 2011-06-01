@@ -118,6 +118,17 @@ h1 {
   overflow-x: hidden;
 }
 /* line 33, ../../app/stylesheets/screen.sass */
+#container #maps #share {
+  display: inline;
+  float: left;
+  margin-right: 10px;
+  width: 470px;
+}
+/* line 147, ../../../../../.rvm/gems/ruby-1.9.2-p180@r3/gems/compass-0.11.1/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+* html #container #maps #share {
+  overflow-x: hidden;
+}
+/* line 35, ../../app/stylesheets/screen.sass */
 #container #maps #map {
   display: inline;
   float: left;
@@ -132,7 +143,7 @@ h1 {
 * html #container #maps #map {
   overflow-x: hidden;
 }
-/* line 39, ../../app/stylesheets/screen.sass */
+/* line 41, ../../app/stylesheets/screen.sass */
 #container #maps #waypoints {
   display: inline;
   float: left;
@@ -146,7 +157,7 @@ h1 {
 * html #container #maps #waypoints {
   overflow-x: hidden;
 }
-/* line 44, ../../app/stylesheets/screen.sass */
+/* line 46, ../../app/stylesheets/screen.sass */
 #container #maps #directions {
   display: inline;
   float: left;
@@ -160,15 +171,24 @@ h1 {
 * html #container #maps #directions {
   overflow-x: hidden;
 }
-/* line 49, ../../app/stylesheets/screen.sass */
+/* line 51, ../../app/stylesheets/screen.sass */
 #container #maps #directions ol {
   margin-left: 20px;
 }
-/* line 51, ../../app/stylesheets/screen.sass */
+/* line 53, ../../app/stylesheets/screen.sass */
 #container #maps #directions ol li {
   list-style-type: decimal;
 }
-/* line 53, ../../app/stylesheets/screen.sass */
+/* line 55, ../../app/stylesheets/screen.sass */
+#container #maps #directions ul.distance {
+  font-size: small;
+  margin: 20px;
+}
+/* line 58, ../../app/stylesheets/screen.sass */
+#container #maps #directions ul.distance li {
+  list-style-type: disc;
+}
+/* line 60, ../../app/stylesheets/screen.sass */
 #container #search {
   display: inline;
   float: left;
@@ -182,7 +202,7 @@ h1 {
   overflow-x: hidden;
 }
 
-/* line 59, ../../app/stylesheets/screen.sass */
+/* line 66, ../../app/stylesheets/screen.sass */
 #footer {
   display: inline;
   float: left;
